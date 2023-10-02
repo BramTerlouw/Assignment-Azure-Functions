@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Http_Trigger_Github": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7187",
+      "launchBrowser": false
+    }
+  }
+}
