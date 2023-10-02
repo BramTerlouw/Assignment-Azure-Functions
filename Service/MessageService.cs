@@ -16,11 +16,12 @@ namespace Http_Trigger_Github.Service
         public MessageService(IMessageRepository messageRepository)
         {
             _messageRepository = messageRepository;
+            _messageRepository.CreateTable("payloads");
         }
 
-        public void Add(Github_Payload payload)
+        public async Task Add(Github_Payload payload)
         {
-            _messageRepository.Add(payload);
+            await _messageRepository.AddAsync(payload);
         }
 
         public IEnumerable<Github_Payload> GetAll()

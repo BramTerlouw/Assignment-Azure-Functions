@@ -12,11 +12,13 @@ namespace Http_Trigger_Github
     {
         private readonly ILogger _logger;
         private readonly ISlackService _slackService;
+        private readonly IMessageService _messageService;
 
-        public Github_http_trigger(ILoggerFactory loggerFactory, ISlackService slackService)
+        public Github_http_trigger(ILoggerFactory loggerFactory, ISlackService slackService, IMessageService messageService)
         {
             _logger = loggerFactory.CreateLogger<Github_http_trigger>();
             _slackService = slackService;
+            _messageService = messageService;
         }
 
         [Function("Github_http_trigger")]
@@ -45,11 +47,11 @@ namespace Http_Trigger_Github
 
             SlackMessage message = new SlackMessage();
             message.text = $"Commit made by {payload.commitMadeBy} in branch {payload.branch}: Message: {payload.message} on {payload.timestamp}";
-            
-
             string serializedMessage = JsonConvert.SerializeObject(message);
+            
+            
             await _slackService.SendPayload(serializedMessage);
-
+            await _messageService.Add(payload);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");

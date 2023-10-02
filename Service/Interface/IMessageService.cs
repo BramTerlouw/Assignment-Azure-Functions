@@ -10,7 +10,7 @@ namespace Http_Trigger_Github.Service.Interface
     public interface IMessageService
     {
         IEnumerable<Github_Payload> GetAll();
-        void Add(Github_Payload payload);
+        Task Add(Github_Payload payload);
 
     }
 }
