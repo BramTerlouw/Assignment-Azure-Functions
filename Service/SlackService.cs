@@ -19,11 +19,10 @@ namespace Http_Trigger_Github.Service
 
         public async Task SendPayload(string payload)
         {
-            string slackWebhookUrl = "https://hooks.slack.com/services/YOUR_WEBHOOK_URL";
+            string slackWebhookUrl = "https://hooks.slack.com/services/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";
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Content-Type", "application/json");
                 var content = new StringContent(payload, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(slackWebhookUrl, content);
 

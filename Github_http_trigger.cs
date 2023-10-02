@@ -25,20 +25,34 @@ namespace Http_Trigger_Github
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
 
-
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             Github_Payload? payload = JsonConvert.DeserializeObject<Github_Payload>(requestBody);
 
 
+            //Github_Payload? payload = new Github_Payload();
+            //payload.commitMadeBy = "Bram Terlouw";
+            //payload.branch = "Main";
+            //payload.message = "Test Message in Development";
+            //payload.timestamp = DateTime.Now.ToString();
 
-            string serializedPayload = JsonConvert.SerializeObject(payload);
-            await _slackService.SendPayload(serializedPayload);
 
+            if (payload == null )
+            {
+                var errorResponse = req.CreateResponse(HttpStatusCode.BadRequest);
+                return errorResponse;
+            }
+
+
+            SlackMessage message = new SlackMessage();
+            message.text = $"Commit made by {payload.commitMadeBy} in branch {payload.branch}: Message: {payload.message} on {payload.timestamp}";
+            
+
+            string serializedMessage = JsonConvert.SerializeObject(message);
+            await _slackService.SendPayload(serializedMessage);
 
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-
             return response;
         }
     }
