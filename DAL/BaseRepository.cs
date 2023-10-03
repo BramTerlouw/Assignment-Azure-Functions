@@ -1,4 +1,5 @@
 ﻿using Http_Trigger_Github.DAL.Interface;
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 

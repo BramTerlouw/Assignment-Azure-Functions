@@ -3,6 +3,7 @@ using Http_Trigger_Github.Model;
 using Http_Trigger_Github.Service.Interface;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -52,6 +53,7 @@ namespace Http_Trigger_Github
 
             //await _slackService.SendPayload(serializedMessage);
             await _logService.Add(payload);
+
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
