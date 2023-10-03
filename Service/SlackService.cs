@@ -1,10 +1,6 @@
 ﻿using Http_Trigger_Github.Service.Interface;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Http_Trigger_Github.Service
 {
@@ -19,7 +15,7 @@ namespace Http_Trigger_Github.Service
 
         public async Task SendPayload(string payload)
         {
-            string slackWebhookUrl = "https://hooks.slack.com/services/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";
+            string slackWebhookUrl = ""; // Get from Configurations;
 
             using (HttpClient client = new HttpClient())
             {

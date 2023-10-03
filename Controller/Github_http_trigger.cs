@@ -12,13 +12,13 @@ namespace Http_Trigger_Github
     {
         private readonly ILogger _logger;
         private readonly ISlackService _slackService;
-        private readonly IMessageService _messageService;
+        private readonly ILogService _logService;
 
-        public Github_http_trigger(ILoggerFactory loggerFactory, ISlackService slackService, IMessageService messageService)
+        public Github_http_trigger(ILoggerFactory loggerFactory, ISlackService slackService, ILogService logService)
         {
             _logger = loggerFactory.CreateLogger<Github_http_trigger>();
             _slackService = slackService;
-            _messageService = messageService;
+            _logService = logService;
         }
 
         [Function("Github_http_trigger")]
@@ -27,15 +27,15 @@ namespace Http_Trigger_Github
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            Github_Payload? payload = JsonConvert.DeserializeObject<Github_Payload>(requestBody);
+            //string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            //Github_Payload? payload = JsonConvert.DeserializeObject<Github_Payload>(requestBody);
 
 
-            //Github_Payload? payload = new Github_Payload();
-            //payload.commitMadeBy = "Bram Terlouw";
-            //payload.branch = "Main";
-            //payload.message = "Test Message in Development";
-            //payload.timestamp = DateTime.Now.ToString();
+            Github_Payload? payload = new Github_Payload();
+            payload.commitMadeBy = "Bram Terlouw";
+            payload.branch = "Main";
+            payload.message = "Test Message in Development";
+            payload.timestamp = DateTime.Now.ToString();
 
 
             if (payload == null )
@@ -45,13 +45,13 @@ namespace Http_Trigger_Github
             }
 
 
-            SlackMessage message = new SlackMessage();
-            message.text = $"Commit made by {payload.commitMadeBy} in branch {payload.branch}: Message: {payload.message} on {payload.timestamp}";
-            string serializedMessage = JsonConvert.SerializeObject(message);
-            
-            
-            await _slackService.SendPayload(serializedMessage);
-            await _messageService.Add(payload);
+            //SlackMessage message = new SlackMessage();
+            //message.text = $"Commit made by {payload.commitMadeBy} in branch {payload.branch}: Message: {payload.message} on {payload.timestamp}";
+            //string serializedMessage = JsonConvert.SerializeObject(message);
+
+
+            //await _slackService.SendPayload(serializedMessage);
+            await _logService.Add(payload);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");

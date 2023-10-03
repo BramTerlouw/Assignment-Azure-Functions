@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Http_Trigger_Github.Service.Interface
 {
-    public interface IMessageService
+    public interface ILogService
     {
-        IEnumerable<Github_Payload> GetAll();
         Task Add(Github_Payload payload);
 
     }

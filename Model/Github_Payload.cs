@@ -20,9 +20,9 @@ namespace Http_Trigger_Github.Model
             this.branch = branch;
             this.message = message;
             this.timestamp = timestamp;
-
+            
             PartitionKey = branch;
-            RowKey = $"{commitMadeBy}{branch}";
+            RowKey = $"{branch}{commitMadeBy}";
         }
     }
 }
