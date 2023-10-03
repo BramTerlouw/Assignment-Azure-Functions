@@ -1,7 +1,4 @@
 ﻿using Http_Trigger_Github.DAL.Interface;
-using Http_Trigger_Github.Model;
-using Http_Trigger_Github.Service;
-using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 
@@ -17,9 +14,9 @@ namespace Http_Trigger_Github.DAL
         public BaseRepository() : base()
         {
             // Yes i knoww, voor testing purposes, gaat straks naar de configuration
-            _storageAccount = CloudStorageAccount.Parse("AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;");
+           _storageAccount = CloudStorageAccount.Parse("AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;");
             _tableClient = _storageAccount.CreateCloudTableClient();
-            _table = _tableClient.GetTableReference("products");
+            _table = _tableClient.GetTableReference("logs");
             _table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
         }
 
