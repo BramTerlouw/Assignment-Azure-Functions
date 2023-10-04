@@ -6,16 +6,16 @@ namespace Http_Trigger_Github.Service
 {
     public class LogService : ILogService
     {
-        private readonly ILogRepository _logRepository;
+        private readonly ILogRepository _logCommitRepository;
 
-        public LogService(ILogRepository logRepository)
+        public LogService(ILogRepository logCommitRepository)
         {
-            _logRepository = logRepository;
+            _logCommitRepository = logCommitRepository;
         }
 
         public async Task Add(Github_Payload payload)
         {
-            await _logRepository.CreateAsync(payload);
+            await _logCommitRepository.CreateAsync(payload);
         }
     }
 }
