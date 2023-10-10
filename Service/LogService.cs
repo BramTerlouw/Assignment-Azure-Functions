@@ -17,5 +17,10 @@ namespace Http_Trigger_Github.Service
         {
             await _logCommitRepository.CreateAsync(payload);
         }
+
+        public async Task<IEnumerable<Github_Payload>> GetAll()
+        {
+            return await _logCommitRepository.GetAllAsync();
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Http_Trigger_Github.DAL.Interface;
-using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 
@@ -14,8 +13,7 @@ namespace Http_Trigger_Github.DAL
 
         public BaseRepository() : base()
         {
-            // Yes i knoww, voor testing purposes, gaat straks naar de configuration
-           _storageAccount = CloudStorageAccount.Parse("AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;");
+            _storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("CONNSTRING"));
             _tableClient = _storageAccount.CreateCloudTableClient();
         }
 
@@ -24,5 +22,19 @@ namespace Http_Trigger_Github.DAL
             TableOperation insertOperation = TableOperation.Insert(entity);
             await _table.ExecuteAsync(insertOperation);
         }
+
+        public Task<IEnumerable<T>> GetAllAsync()
+        {
+            List<T> entities = new List<T>();
+            TableQuery<T> query = new TableQuery<T>();
+
+            foreach (T entity in _table.ExecuteQuerySegmentedAsync(query, null).Result)
+            {
+                entities.Add(entity);
+            }
+
+            return Task.FromResult<IEnumerable<T>>(entities);
+        }
+
     }
 }

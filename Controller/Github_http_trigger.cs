@@ -1,13 +1,8 @@
-using System.Net;
-using System.Runtime.Serialization;
-using Google.Protobuf.WellKnownTypes;
 using Http_Trigger_Github.Model;
 using Http_Trigger_Github.Service.Interface;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage;
 using Newtonsoft.Json;
 
 namespace Http_Trigger_Github
@@ -48,7 +43,7 @@ namespace Http_Trigger_Github
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error: {ex.Message}");
+                _logger.LogError($"Error: {ex.Message} at {ex.StackTrace}, details: {ex.GetBaseException()}");
             }
         }
     }
