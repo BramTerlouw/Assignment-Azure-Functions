@@ -4,14 +4,14 @@
 **Studentnumber:**  614992          <br/>
 **Teacher:**        Frank Dersjant
 
-### Desciption of codebase: <br/>
+## Desciption of codebase: <br/>
 Project gebouwd in n-tier architectuur. Bevat twee Azure functions die beide getriggered worden met een http reguest. Eerste function ontvangt een call via een Github Action van repository: [Target Github Repository](https://github.com/BramTerlouw/Github-Webhook)
 
 Github data wordt opgeslagen in een Azure Table Storage en doorgestuurd naar een Slack bot die het bericht weergeeft in een Slack Channel.
 
 Tweede function haalt alle data op uit de Azure Table storage en returned deze naar de client wanneer de function wordt aangeroepen met een GET request.
 
-### Steps to run:
+## Steps to run:
 
 **Step 1:** <br/>
 Run Azure function project
