@@ -23,7 +23,7 @@ ngrok http {port of azure function} --name=localhost
 - Add ngrok domain address to YAML of Github Action.
 - Save and Commit change.
 
-### Usage:
+## Usage:
 1. Commit Change in branch of repository.<br/>
 2. Open Slack to see notification of push in channel.
 3. Make a **Get** request to URL of Azure function for fetching data.
