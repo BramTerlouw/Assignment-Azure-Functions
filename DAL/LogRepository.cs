@@ -7,7 +7,7 @@ namespace Http_Trigger_Github.DAL
     {
         public LogRepository() : base()
         {
-            _table = _tableClient.GetTableReference("commitLogs");
+            _table = _tableClient.GetTableReference("commitlogs");
             _table.CreateIfNotExistsAsync().GetAwaiter().GetResult();
         }
     }
