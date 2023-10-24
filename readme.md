@@ -17,7 +17,7 @@ Tweede function haalt alle data op uit de Azure Table storage en returned deze n
 Run Azure function project
 
 **Step 2:** <br/>
-ngrok http {port of azure function} --name=localhost
+ngrok http {port of azure function}
 
 **Step 3:** <br/>
 - Add ngrok domain address to YAML of Github Action.
